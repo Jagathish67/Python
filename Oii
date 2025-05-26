@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+
+# Simulated medical images and labels
+imgs = [np.random.randint(0, 256, (64, 64), dtype=np.uint8) for _ in range(3)]
+labels = ['Normal', 'Pneumonia', 'Normal']
+
+# Display the images
+for i, img in enumerate(imgs):
+    plt.subplot(1, 3, i+1)
+    plt.imshow(img, cmap='gray')
+    plt.title(labels[i])
+    plt.axis('off')
+plt.show()
+
+# Pixel intensity histogram for the first normalized image
+imgs = [cv2.resize(i, (32, 32)) / 255 for i in imgs]
+plt.hist(imgs[0].ravel(), bins=20)
+plt.title("Pixel Intensity Distribution")
+plt.xlabel("Intensity")
+plt.ylabel("Frequency")
+plt.show()
+import cv2
+import numpy as np
+
+# Example list of raw images (replace with real data in implementation)
+imgs = [cv2.imread('image1.png', 0), cv2.imread('image2.png', 0)]  # grayscale
+
+# Resize and normalize grayscale images
+resized_images = [cv2.resize(img, (32, 32)) for img in imgs]
+normalized_images = [img / 255.0 for img in resized_images]
+
+X = np.array(normalized_images)
+
+print("Processed data shape:", X.shape)  # (number_of_images, 32, 32)
+print("Pixel value range:", X.min(), "to", X.max())
